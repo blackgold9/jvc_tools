@@ -5,7 +5,7 @@
 import json
 import select
 import socket
-import dumpdata
+from . import dumpdata
 
 DEFAULT_PORT = 20554
 

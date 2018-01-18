@@ -4,8 +4,8 @@
 
 import enum
 
-import dumpdata
-import jvc_network
+from . import dumpdata
+from . import jvc_network
 
 class Error(Exception):
     """JVC protocol error"""

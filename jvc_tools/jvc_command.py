@@ -5,9 +5,9 @@
 
 from enum import Enum
 
-import dumpdata
-import jvc_protocol
-from jvc_protocol import CommandNack
+from . import dumpdata
+from . import jvc_protocol
+from .jvc_protocol import CommandNack
 
 class ReadOnly():
     """Common base class for read-only command arguments"""
