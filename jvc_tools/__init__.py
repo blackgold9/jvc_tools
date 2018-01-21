@@ -1,3 +1,2 @@
-from . import jvc_command
-from .jvc_command import JVCCommand
-print('yo')
+from . import jvc_projector
+from .jvc_projector import JVCProjector
