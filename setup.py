@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 
 setup(
     name = 'jvc_tools',
-    version = '0.1',
+    version = '0.1.3',
     url = 'https://github.com/blackgold9/jvc_tools',
     author = 'Stephen Vanterpool',
     author_email = 'stephen+jvc@vanterpool.net',

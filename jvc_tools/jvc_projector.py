@@ -73,9 +73,8 @@ class JVCProjector:
         return self._lowLatencyState == LowLatency.On
 
     @low_latency_enabled.setter
-    def set_low_latency_enabled(self, enabled): 
-        with self._jvc as cmd:  
-            _LOGGER.debug('Setting low latency on. Tries remaining: %d', retry)
+    def low_latency_enabled(self, enabled): 
+        with self._jvc as cmd:              
             desiredLowLatency = LowLatency.On if enabled else LowLatency.Off
             try:                    
                 currentState = cmd.get(Command.Power)
