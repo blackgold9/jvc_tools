@@ -36,7 +36,7 @@ class JVCNetwork:
         try:
             if self.print_send:
                 print('    - connecting...')
-            self.socket.settimeout(2)
+            self.socket.settimeout(1)
             self.socket.connect(self.host_port)
             if self.print_send:
                 print('    - connected')
