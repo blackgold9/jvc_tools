@@ -36,9 +36,12 @@ class JVCNetwork:
         try:
             if self.print_send:
                 print('    - connecting...')
+            self.socket.settimeout(2)
             self.socket.connect(self.host_port)
             if self.print_send:
                 print('    - connected')
+        except socket.timeout:
+            raise Timeout('Timeout connecting to projector')
         except Exception as err:
             raise Error('Connection failed', err)
         self.expect(b'PJ_OK')

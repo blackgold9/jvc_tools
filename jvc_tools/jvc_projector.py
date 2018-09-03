@@ -4,6 +4,7 @@
 """JVC projector high level module"""
 
 from .jvc_command import(JVCCommand, Command, SourceData, PowerState, LowLatency, CommandNack)
+from .jvc_network import(Timeout)
 import logging
 _LOGGER = logging.getLogger(__name__)
 
@@ -95,9 +96,9 @@ class JVCProjector:
 
     def _update(self, retry=2):
         try:
-            with self._jvc as cmd:  
+            with self._jvc as cmd:
                 _LOGGER.debug('Updating projector. Tries remaining: %d', retry)
-                try:                    
+                try:
                     self._powerState = cmd.get(Command.Power)
                 except Exception as err:
                     if retry < 1:
@@ -111,12 +112,17 @@ class JVCProjector:
                         """Only try to get other states if the lamp is on, otherwise it is rejected."""
                         self._lowLatencyState = cmd.get(Command.LowLatency) 
                         self._input_info = cmd.get(Command.InfoSource)
+                        return True
                     return False           
         except CommandNack as err:
             if retry < 1:
                 _LOGGER.error("NACK during update:", err)  
                 return False
-            return self._update(retry - 1)       
+            return self._update(retry - 1) 
+        except Timeout:            
+            _LOGGER.debug('Connection to projector timed out. Assuming off.')
+            self._powerState = STATE_OFF
+            return True      
         except Exception as err:
             if retry < 1:
                 _LOGGER.error("Generic error during update:", err)
